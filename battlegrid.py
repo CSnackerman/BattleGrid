@@ -1,3 +1,5 @@
+from settings import TILE_SIZE
+
 from tile import Tile
 
 class BattleGrid:
@@ -7,22 +9,94 @@ class BattleGrid:
         self.w = width
         self.h = height
 
-        return
+        self.grid = []
+
+        for r in range (height):
+            
+            new_row = []
+
+            for c in range (width):
+                new_row.append (Tile())
+
+            self.grid.append (new_row)
 
 
     def __str__ (self):
 
-        output_string = "Hi! I'm a "
-        output_string += str ( self.w ) + 'x' + str ( self.h )
-        output_string += " battlegrid object. I was created by __init__()."
+        output_string = ''
+
+        # Letters Row
+        letter_counter = 0
+        for i in range (self.w * (TILE_SIZE + 1)):
+            if i % 4 - 2 == 0 and i > 0:
+                output_string += chr (65 + letter_counter)
+                letter_counter += 1
+            else:
+                output_string += ' '
+
+            
+
+        output_string += '\n┌'
+
+        # top bars
+        for i in range (self.w * (TILE_SIZE + 1) - 1):
+            if i % 4 - 3 == 0 and i > 0:
+                output_string += '┬'
+            else:
+                output_string += '─'
+
+        output_string += '┐\n│'
+
+        
+        for tile_row in range (self.h):
+
+            for r in range (TILE_SIZE):
+
+                for tile_col in range (len (self.grid [tile_row])):
+
+                    for c in range (TILE_SIZE):
+                        tile = self.grid [tile_row] [tile_col]
+                        output_string += tile.grid [r] [c]
+
+                    if tile_col != len (self.grid[tile_row]) - 1:
+                        output_string += '│'
+
+                if tile_row == self.h - 1 and r == 2:
+                    output_string += '│\n'
+                else:
+                    output_string += '│\n│'
+
+            if tile_row < self.h - 1:
+                for w in range (self.w * (TILE_SIZE  + 1) - 1):
+                    if w % 4 - 3 == 0 and w > 0:
+                        output_string += '┼'
+                    else:
+                        output_string += '─'
+                output_string += '│\n│'
+
+        # bottom row
+
+
+        output_string += '└'
+        for i in range (self.w * (TILE_SIZE + 1) - 1):
+            if i % 4 - 3 == 0 and i > 0:
+                output_string += '┴'
+            else:
+                output_string += '─'
+
+        output_string += '┘\n'
 
         return output_string
+
+
+    def addTile (self, position:str):
+        pass
 
 
 
 
 if __name__ == '__main__':
 
-    test_battlegrid = BattleGrid (10, 10)
+    test_battlegrid = BattleGrid (8, 3)
 
     print (test_battlegrid)

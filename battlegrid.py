@@ -23,7 +23,7 @@ class BattleGrid:
 
     def __str__ (self):
 
-        output_string = ''
+        output_string = '\n '
 
         # Letters Row
         letter_counter = 0
@@ -36,7 +36,7 @@ class BattleGrid:
 
             
 
-        output_string += '\n┌'
+        output_string += '\n ┌'
 
         # top bars
         for i in range (self.w * (TILE_SIZE + 1) - 1):
@@ -45,7 +45,7 @@ class BattleGrid:
             else:
                 output_string += '─'
 
-        output_string += '┐\n│'
+        output_string += '┐\n │'
 
         
         for tile_row in range (self.h):
@@ -62,9 +62,12 @@ class BattleGrid:
                         output_string += '│'
 
                 if tile_row == self.h - 1 and r == 2:
-                    output_string += '│\n'
+                    output_string += '│\n '
                 else:
-                    output_string += '│\n│'
+                    if r == 0:
+                        output_string += '│\n' + str (tile_row + 1) + '│'
+                    else:
+                        output_string += '│\n │'
 
             if tile_row < self.h - 1:
                 for w in range (self.w * (TILE_SIZE  + 1) - 1):
@@ -72,7 +75,7 @@ class BattleGrid:
                         output_string += '┼'
                     else:
                         output_string += '─'
-                output_string += '│\n│'
+                output_string += '│\n │'
 
         # bottom row
 

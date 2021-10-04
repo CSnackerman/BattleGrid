@@ -105,7 +105,7 @@ class BattleGrid:
 
         number = int (number) - 1
 
-        print ('adding ', name, ' to coords (', letter,', ', number, ')', sep='')
+        print ('adding ', name,' to ',  position,  ' -> (', letter,', ', number, ')', sep='')
 
         self.grid [number] [letter].createTile (name)
 

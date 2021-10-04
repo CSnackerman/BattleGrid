@@ -92,8 +92,25 @@ class BattleGrid:
         return output_string
 
 
-    def addTile (self, position:str):
-        pass
+    def addTile (self, name,  position:str):
+        letter = position [0]
+        number = position [1]
+
+        if not letter.isalpha() or not number.isnumeric():
+            print ('invalid position given to addTile() ->', position)
+            return
+
+        letter = letter.upper()
+        letter = ord (letter) - 65
+
+        number = int (number) - 1
+
+        print ('adding ', name, ' to coords (', letter,', ', number, ')', sep='')
+
+        self.grid [number] [letter].createTile (name)
+
+        
+        
 
 
 
@@ -101,5 +118,7 @@ class BattleGrid:
 if __name__ == '__main__':
 
     test_battlegrid = BattleGrid (8, 3)
+
+    test_battlegrid.addTile ('E', 'A1')
 
     print (test_battlegrid)
